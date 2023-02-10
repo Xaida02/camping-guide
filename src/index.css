@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300&family=Roboto:wght@300&family=Shadows+Into+Light&family=Titillium+Web:wght@300&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.text-gradient {
+  background-image: linear-gradient(to right, #054502, #268912);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.smooth-transition {
+  transition: all 0.36s ease;
+}
+
+.gradient1 {
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #548e53 100%);
+  filter: blur(123px);
+}
+
+.gradient2 {
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #4fd34d 100%);
+  filter: blur(123px);
+}
+
+.gradient3 {
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #40cc3d 100%);
+  filter: blur(123px);
+}

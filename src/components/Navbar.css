@@ -1,0 +1,68 @@
+.fire-gradient {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 224, 0.3) 0%,
+    rgba(255, 255, 0, 0.242) 40%,
+    rgba(255, 128, 0, 0.137) 60%,
+    rgba(255, 0, 0, 0) 100%
+  );
+  filter: blur(10px);
+  border-radius: 50%;
+}
+
+nav {
+  box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links::before {
+  content: "";
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #e3f1e3;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes menuIconAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.menu-icon {
+  animation: menuIconAnimation 1s ease-in-out infinite;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  background-color: #628a60;
+  height: 3px;
+  width: 0;
+  left: 0;
+  transition: 0.3s;
+  bottom: -8px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.submenu::before {
+  content: "";
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #80b380;
+  position: absolute;
+  top: 50%;
+  right: -7px;
+  transform: translateX(-50%);
+}
