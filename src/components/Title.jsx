@@ -45,7 +45,7 @@ const Title = () => {
           <h1 className="smooth-transition text-4xl text-[#0b8404] font-bold md:text-7xl sm:text-6xl relative">
             SUMMER CAMPING <br /> GUIDE
           </h1>
-          <h1 className="smooth-transition title-clone absolute text-4xl text-[#1cc114] font-bold md:text-7xl sm:text-6xl">
+          <h1 className="smooth-transition title-clone absolute text-4xl text-[#36ff2b] font-bold md:text-7xl sm:text-6xl">
             SUMMER CAMPING <br /> GUIDE
           </h1>
         </div>
