@@ -20,16 +20,16 @@
 }
 
 .gradient1 {
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #548e53 100%);
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #179715 100%);
   filter: blur(123px);
 }
 
 .gradient2 {
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #4fd34d 100%);
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #109c10 100%);
   filter: blur(123px);
 }
 
 .gradient3 {
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #40cc3d 100%);
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #139b22 100%);
   filter: blur(123px);
 }

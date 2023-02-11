@@ -1,5 +1,10 @@
 import React from "react";
-import { GiForestCamp, GiCampingTent, GiCampCookingPot } from "react-icons/gi";
+import {
+  GiCampfire,
+  GiForestCamp,
+  GiCampingTent,
+  GiCampCookingPot,
+} from "react-icons/gi";
 
 const SectionInfo = ({ heading, text }) => {
   return (
@@ -12,8 +17,9 @@ const SectionInfo = ({ heading, text }) => {
           {text}
         </p>
       </div>
-      <div className="absolute right-2 sm:right-4 bottom-2 sm:bottom-4 flex justify-between w-[150px] text-2xl sm:text-4xl text-[#ffffff83]">
+      <div className="absolute right-2 sm:right-4 bottom-2 sm:bottom-4 flex justify-between w-[200px] text-2xl sm:text-4xl text-[#ffffff83]">
         <GiForestCamp className="hover:text-[#ffffffdc] smooth-transition" />
+        <GiCampfire className="hover:text-[#ffffffdc] smooth-transition" />
         <GiCampingTent className="hover:text-[#ffffffdc] smooth-transition" />
         <GiCampCookingPot className="hover:text-[#ffffffdc] smooth-transition" />
       </div>

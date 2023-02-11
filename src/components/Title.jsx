@@ -29,7 +29,7 @@ const Title = () => {
   return (
     <section className="h-auto lg:h-[74vh] mt-[100px] sm:h-[80vh] px-10 flex items-center">
       <div className="m-auto m-w-[800px] w-full text-center flex-col justify-center">
-        <p className="font-bold uppercase md:py-6 p-2 text-[#1cc114]">
+        <p className="font-semibold uppercase md:py-6 p-2 text-[#11770c]">
           free of charge and for everyone
         </p>
         <div
@@ -42,7 +42,7 @@ const Title = () => {
           }}
           className="smooth-transition relative w-auto h-auto flex justify-center"
         >
-          <h1 className="smooth-transition text-4xl text-[#054502] font-bold md:text-7xl sm:text-6xl relative">
+          <h1 className="smooth-transition text-4xl text-[#0b8404] font-bold md:text-7xl sm:text-6xl relative">
             SUMMER CAMPING <br /> GUIDE
           </h1>
           <h1 className="smooth-transition title-clone absolute text-4xl text-[#1cc114] font-bold md:text-7xl sm:text-6xl">
@@ -50,7 +50,7 @@ const Title = () => {
           </h1>
         </div>
         <div>
-          <p className="md:text-4xl sm:text-2xl py-2 text-xl text-[#054502c9] font-normal m-auto">
+          <p className="md:text-4xl sm:text-2xl py-2 text-xl text-[#054502c9] font-[Roboto] m-auto">
             We will teach you how to survive!
           </p>
         </div>

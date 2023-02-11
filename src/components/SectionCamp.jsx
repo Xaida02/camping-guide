@@ -25,7 +25,7 @@ const SectionCamp = ({ reverse, name, img, heading, p1, p2 }) => {
         <div className="gradient1 absolute w-[70%] h-[70%] bottom-[10px] z-[-1]" />
         <div className="gradient2 absolute w-[70%] h-[70%] left-[40px] z-[-1]" />
         <div className="gradient3 absolute w-[70%] h-[70%] top-[30px] z-[-1]" />
-        <p className="italic max-w-[400] mt-[12px] font-bold text-[14.5px] text-[#096a04]">
+        <p className="italic max-w-[400] mt-4 font-bold text-[14.5px] text-[#096a04]">
           {p2}
         </p>
       </div>
