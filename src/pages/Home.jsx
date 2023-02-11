@@ -1,14 +1,15 @@
 import React from "react";
 import "./Home.css";
-import { Footer, SectionCamp, SectionInfo } from "../components";
+import { Footer, SectionCamp, SectionInfo, Title } from "../components";
 
 const Home = () => {
   return (
     <>
-      <main className="h-full w-full pt-5">
+      <main className="h-full w-full pt-10">
+        <Title />
         {/* Hero */}
         <SectionCamp
-          name="hero"
+          name="welcome"
           reverse={false}
           heading="The Ultimate Guide to a Successful Camping Adventure"
           p1={

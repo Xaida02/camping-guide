@@ -53,18 +53,18 @@ const Navbar = () => {
           className="relative flex justify-around items-center"
         >
           <h1
-            className={`cursor-pointer ${
-              !showLinks ? "text-gray-100" : "text-[#ffff007b] "
+            className={`cursor-pointer capitalize ${
+              !showLinks ? "text-[#fff]" : "text-[#ffff007b]"
             } sm:text-xl text-sm font-bold ml-4 duration-1000`}
           >
-            Camping guide <GiCampfire className="inline text-s " />
+            Camping guide
           </h1>
           <button ref={buttonRef} className="absolute top-[30px] left-[50%]">
             <BsChevronDoubleDown
-              className={`${
+              className={`text-xl scale-x-150 font-bold  ${
                 !showLinks
-                  ? "fill-gray-100 hover:fill-[#1b7d1b]] ease duration-500 text-xl"
-                  : "fill-[#ffff007b] rotate-180 duration-500 text-xl"
+                  ? "fill-gray-100 hover:fill-[#1b7d1b]] ease duration-500"
+                  : "fill-[#ffff007b] rotate-180 duration-500"
               }`}
             />
           </button>
@@ -81,7 +81,7 @@ const Navbar = () => {
                 const { name, id, url, icon } = link;
                 return (
                   <li
-                    className={`submenu-li py-2 pl-2 smooth-transition border-b border-[#00330020] hover:border-[#2f7d2b9c] hover:bg-[white] hover:translate-x-1 hover:shadow-2xl text-[#2f7d2b] hover:text-[#003300] ${
+                    className={`submenu-li py-2 pl-2 smooth-transition border-b border-[#00330020] hover:border-[#2f7d2b59] hover:bg-[white] hover:translate-x-1 hover:shadow-2xl text-[#2f7d2b] hover:text-[#003300] ${
                       index === sideBarLinks.length - 1
                         ? "mb-[0.5px]"
                         : "mb-[2px]"
@@ -102,7 +102,7 @@ const Navbar = () => {
             </ul>
             <BsChevronCompactUp
               onClick={() => setShowMenu(false)}
-              className="text-4xl w-full absolute bottom-[-45px] animate-bounce fill-[#238200d7] cursor-pointer"
+              className="text-4xl w-full absolute bottom-[-45px] stroke-1 stroke-[#238200d7] animate-bounce fill-[#238200d7] cursor-pointer"
             />
           </div>
         </div>
@@ -120,7 +120,7 @@ const Navbar = () => {
               <li className="capitalize" key={link.id}>
                 <a
                   className={
-                    "relative nav-link  text-dimWhite hover:text-[white] duration-500 font-normal " +
+                    "relative nav-link  text-[#FFF] hover:text-[white] duration-500 font-semibold " +
                     (index === navLinks.length - 1 ? " mr-3" : " mr-6")
                   }
                   to={link.url}

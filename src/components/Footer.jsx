@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className="w-full bg-[#054502] text-gray-100 px-4 py-16 grid lg:grid-cols-3 gap-8">
       <div>
         <h1
-          className={`cursor-pointer w.full sm:text-xl text-sm font-bold ml-4 duration-1000`}
+          className={`capitalize cursor-pointer w.full sm:text-xl text-sm font-bold ml-4 duration-1000`}
         >
-          Camping guide <GiCampfire className="inline text-s " />
+          Camping guide
         </h1>
         <p className="py-4">
           This guide, presented by the United States Government Environment
@@ -33,45 +33,45 @@ const Footer = () => {
         <div className="">
           <h6 className="font-medium text-[white]">About Us</h6>
           <ul className="text-gray-200">
-            <li className="py-2 text-sm">Mission</li>
-            <li className="py-2 text-sm">History</li>
-            <li className="py-2 text-sm">Team</li>
-            <li className="py-2 text-sm">Contact</li>
+            <li className="py-2 cursor-pointer text-sm">Mission</li>
+            <li className="py-2 cursor-pointer text-sm">History</li>
+            <li className="py-2 cursor-pointer text-sm">Team</li>
+            <li className="py-2 cursor-pointer text-sm">Contact</li>
           </ul>
         </div>
         <div className="">
           <h6 className="font-medium text-[white]">Topics</h6>
           <ul className="text-gray-200">
-            <li className="py-2 text-sm">Sustainability</li>
-            <li className="py-2 text-sm">Renewable Energy</li>
-            <li className="py-2 text-sm">Biodiversity</li>
-            <li className="py-2 text-sm">FAQ</li>
+            <li className="py-2 cursor-pointer text-sm">Sustainability</li>
+            <li className="py-2 cursor-pointer text-sm">Renewable Energy</li>
+            <li className="py-2 cursor-pointer text-sm">Biodiversity</li>
+            <li className="py-2 cursor-pointer text-sm">FAQ</li>
           </ul>
         </div>
         <div className="">
           <h6 className="font-medium text-[white]">Support</h6>
           <ul className="text-gray-200">
-            <li className="py-2 text-sm">Contact</li>
-            <li className="py-2 text-sm">Help Center</li>
-            <li className="py-2 text-sm">Forums</li>
+            <li className="py-2 cursor-pointer text-sm">Contact</li>
+            <li className="py-2 cursor-pointer text-sm">Help Center</li>
+            <li className="py-2 cursor-pointer text-sm">Forums</li>
           </ul>
         </div>
         <div className="">
           <h6 className="font-medium text-[white]">Legal</h6>
           <ul className="text-gray-200">
-            <li className="py-2 text-sm">Terms</li>
-            <li className="py-2 text-sm">Privacy</li>
-            <li className="py-2 text-sm">Cookies</li>
+            <li className="py-2 cursor-pointer text-sm">Terms</li>
+            <li className="py-2 cursor-pointer text-sm">Privacy</li>
+            <li className="py-2 cursor-pointer text-sm">Cookies</li>
           </ul>
         </div>
         <div className="">
           <h6 className="font-medium text-[white]">Resources</h6>
           <ul className="text-gray-200">
-            <li className="py-2 text-sm">Glossary</li>
-            <li className="py-2 text-sm">Tools</li>
-            <li className="py-2 text-sm">Related</li>
-            <li className="py-2 text-sm">Citations</li>
-            <li className="py-2 text-sm">References</li>
+            <li className="py-2 cursor-pointer text-sm">Glossary</li>
+            <li className="py-2 cursor-pointer text-sm">Tools</li>
+            <li className="py-2 cursor-pointer text-sm">Related</li>
+            <li className="py-2 cursor-pointer text-sm">Citations</li>
+            <li className="py-2 cursor-pointer text-sm">References</li>
           </ul>
         </div>
       </div>

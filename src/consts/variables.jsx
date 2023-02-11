@@ -29,7 +29,7 @@ export const navLinks = [
 //Links on the left side of the navbar
 
 export const sideBarLinks = [
-  { name: "hero", id: 31, icon: <FaHome />, url: "#hero" },
+  { name: "welcome", id: 31, icon: <FaHome />, url: "#welcome" },
   { name: "gear", id: 341, icon: <GiBattleGear />, url: "#gear" },
   { name: "clothing", id: 401893, icon: <GiClothes />, url: "#clothing" },
   { name: "food", id: 65, icon: <GiOpenedFoodCan />, url: "#food" },
