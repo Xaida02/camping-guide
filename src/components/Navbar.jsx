@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { navLinks, sideBarLinks } from "../consts/variables";
-import { FaBars, FaBandcamp } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { BsChevronDoubleDown, BsChevronCompactUp } from "react-icons/bs";
 import "./Navbar.css";
 
@@ -45,7 +44,7 @@ const Navbar = () => {
     <>
       <nav
         id="navbar"
-        className="fixed flex bg-[#054502] ] sm:h-[80px] h-[85px] w-full justify-between items-center z-10"
+        className="fixed flex bg-[#054502] sm:h-[80px] h-[85px] w-full justify-between items-center z-10"
       >
         <div
           onClick={() => setShowLinks((prev) => !prev)}
