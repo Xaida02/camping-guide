@@ -148,9 +148,9 @@ const Home = () => {
           text={
             <>
               In our capacitation, we'll provide tips on how to avoid{" "}
-              <span className="font-semibold">dangerous</span>
-              wildlife encounters and what to do if you come into contact with
-              an animal. <br />
+              <span className="font-semibold">dangerous</span> wildlife
+              encounters and what to do if you come into contact with an animal.{" "}
+              <br />
               From storing food properly to making noise while hiking, we'll
               equip you with the knowledge you need to safely enjoy your camping
               experience.
