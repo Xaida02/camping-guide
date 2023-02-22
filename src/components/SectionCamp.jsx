@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
+import "./SectionCamp.css";
 
 const SectionCamp = ({ reverse, name, img, heading, p1, p2 }) => {
+  const [isFirstVisible, setIsFirstVisible] = useState(false);
+  const [isSecondVisible, setIsSecondVisible] = useState(false);
+
+  const firstDiv = useRef(null);
+  const secondDiv = useRef(null);
+
+  useEffect(() => {
+    const myObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === firstDiv.current) {
+          setIsFirstVisible(entry.isIntersecting);
+        } else if (entry.target === secondDiv.current) {
+          setIsSecondVisible(entry.isIntersecting);
+        }
+      });
+    });
+
+    myObserver.observe(firstDiv.current);
+    myObserver.observe(secondDiv.current);
+
+    return () => {
+      myObserver.disconnect();
+    };
+  }, []);
+
   return (
     <section
       id={name}
@@ -10,13 +36,23 @@ const SectionCamp = ({ reverse, name, img, heading, p1, p2 }) => {
           : "sm:flex-row flex-col"
       }`}
     >
-      <div className="max-w-[300px] sm:max-w-[400px]">
+      <div
+        ref={firstDiv}
+        className={`max-w-[300px] sm:max-w-[400px] relative ${
+          isFirstVisible ? (reverse ? "fade-right" : "fade-left") : "opacity-0"
+        }`}
+      >
         <h2 className="px-auto py-4 text-5xl text-gradient font-bold leading-12">
           {heading}
         </h2>
         <p className="mt-6 text-[17px]  text-[#001400]">{p1}</p>
       </div>
-      <div className=" py-6 flex justify-center flex-col my-10 sm:my-0 relative z-0 items-center">
+      <div
+        ref={secondDiv}
+        className={`py-6 flex justify-center flex-col my-10 sm:my-0 relative z-0 items-center  ${
+          isSecondVisible ? (reverse ? "fade-left" : "fade-right") : "opacity-0"
+        }`}
+      >
         <img
           className="smooth-transition hover:brightness-125	hover:scale-105  w-[500px]"
           src={img}

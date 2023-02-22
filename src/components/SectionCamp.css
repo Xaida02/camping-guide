@@ -1,0 +1,28 @@
+.fade-right {
+  animation: fade-in-right 0.8s ease-in-out forwards;
+}
+.fade-left {
+  animation: fade-in-left 0.8s ease-in-out forwards;
+}
+
+@keyframes fade-in-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
