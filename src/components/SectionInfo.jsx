@@ -10,7 +10,9 @@ const icons = [GiForestCamp, GiCampfire, GiCampingTent, GiCampCookingPot];
 
 const SectionInfo = ({ heading, text, className = "" }) => {
   return (
-    <section className={`relative my-16 sm:my-20 lg:my-24 ${className}`}>
+    <section
+      className={`relative my-16 sm:my-20 lg:my-24 dark:opacity-95 ${className}`}
+    >
       <div
         className="
           relative overflow-hidden 

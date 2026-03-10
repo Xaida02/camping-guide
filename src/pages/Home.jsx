@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer, SectionCamp, SectionInfo, Title } from "../components";
 
-// Datos separados del markup — mucho más fácil de mantener
 const sections = [
   {
     name: "welcome",
     reverse: false,
-    img: "/assets/camp1.png",
+    img: "/assets/camp1.webp",
     heading: "The Ultimate Guide to a Successful Camping Adventure",
     p1: "Everything you need to know for your next adventure — gear, food, safety, and more.",
     p2: "Let's start exploring the great outdoors!",
@@ -18,7 +17,7 @@ const sections = [
   {
     name: "gear",
     reverse: true,
-    img: "/assets/campHouse.png",
+    img: "/assets/campHouse.webp",
     heading: "Essential Gear for a Safe Camping Trip",
     p1: "We highlight the must-have equipment needed to ensure a smooth and enjoyable camping experience, with a comprehensive guide on what to bring.",
     p2: "Set your inventory wisely.",
@@ -30,7 +29,7 @@ const sections = [
   {
     name: "clothing",
     reverse: false,
-    img: "/assets/family1.png",
+    img: "/assets/family1.webp",
     heading: "Proper Clothing in the Great Outdoors",
     p1: "Choosing the right clothing is just as important as having the right gear. We highlight the importance of layering and bringing clothing for various weather conditions — from waterproof jackets to sturdy hiking shoes.",
     p2: "With the right clothing, you can stay comfortable and confident as you explore.",
@@ -42,7 +41,7 @@ const sections = [
   {
     name: "food",
     reverse: true,
-    img: "/assets/food.png",
+    img: "/assets/food.webp",
     heading: "Fuel Your Adventure with Great Camp Meals!",
     p1: "Don't let meal planning stress you out. We've got you covered with tips for a delicious and satisfying outdoor feast.",
     p2: "You can still put together a great lunch while camping!",
@@ -54,7 +53,7 @@ const sections = [
   {
     name: "wildlife",
     reverse: false,
-    img: "/assets/wildLife.png",
+    img: "/assets/wildLife.webp",
     heading: "Keep Yourself and the Wildlife Safe — You're Their Guest!",
     p1: "While encountering wild animals can be exciting, it's important to be prepared and take necessary precautions to ensure the safety of both yourself and the animals.",
     p2: "Exploring the great outdoors can bring you face to face with wildlife.",
@@ -66,7 +65,7 @@ const sections = [
   {
     name: "monster",
     reverse: true,
-    img: "/assets/bigFoot.png",
+    img: "/assets/bigFoot.webp",
     heading: "Encountering Odd Creatures: Preparing for the Unexpected",
     p1: "It is possible to encounter creatures such as Bigfoot. Stay alert, make noise to avoid surprising them, carry defensive tools like pepper spray, and know your best escape routes.",
     p2: "Always prioritize your safety — do not approach unknown creatures.",
@@ -78,7 +77,7 @@ const sections = [
   {
     name: "swimming",
     reverse: false,
-    img: "/assets/swim.png",
+    img: "/assets/swim.webp",
     heading: "Dive Into Fun with Safe Swimming Tips!",
     p1: "Taking a dip in a nearby lake or river can be refreshing during a camping trip. However, it's important to be aware of the risks and take necessary precautions.",
     p2: "Grab your towel and let's hit the water!",
@@ -90,7 +89,7 @@ const sections = [
   {
     name: "fires",
     reverse: true,
-    img: "/assets/campNight.png",
+    img: "/assets/campNight.webp",
     heading: "Campfires Are Much More Fun When Safely Set Up!",
     p1: "There's nothing quite like roasting marshmallows over an open flame. Light up your campsite with safe campfire practices.",
     p2: "Keep your campfire blazing — responsibly!",
@@ -102,6 +101,51 @@ const sections = [
 ];
 
 const Home = () => {
+  useEffect(() => {
+    const hash = window.location.hash?.slice(1);
+    if (!hash) return;
+    const navbar = document.getElementById("navbar");
+    const target = document.getElementById(hash);
+    if (target && navbar) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: target.offsetTop - navbar.offsetHeight - 10,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = [
+      "welcome",
+      "gear",
+      "clothing",
+      "food",
+      "wildlife",
+      "monster",
+      "swimming",
+      "fires",
+    ];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.history.replaceState(null, "", `#${entry.target.id}`);
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <main className="w-full pt-[85px]">

@@ -19,8 +19,8 @@ import {
 import { MdContacts } from "react-icons/md";
 
 export const navLinks = [
-  { name: "home", id: 23, url: "#welcome", icon: <FaHome /> },
-  { name: "about", id: 43, url: "#welcome", icon: <FaBookOpen /> },
+  { name: "home", id: 23, url: "/", icon: <FaHome /> },
+  { name: "about", id: 43, url: "/about", icon: <FaBookOpen /> },
   { name: "contact", id: 555, url: "#welcome", icon: <MdContacts /> },
 ];
 

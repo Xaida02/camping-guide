@@ -1,31 +1,58 @@
-# Camping Guide 🏕️
+# 🏕️ Summer Camping Guide
 
-**Your essential web app for camping planning and tips**
+A responsive camping guide built with React and Tailwind CSS. Covers everything from essential gear to wildlife safety — with a clean UI and smooth user experience.
 
-A simple, modern single-page application to help campers organize gear, get practical advice, and prepare for outdoor adventures.
+**Live site:** [xaida02-camping-guide.netlify.app](https://xaida02-camping-guide.netlify.app)
 
-![Camping Scene](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)  
-*(Photo credit: Unsplash – campfire under the stars)*
+---
 
 ## ✨ Features
 
-- Interactive gear checklist
-- Practical camping tips and best practices
-- Packing recommendations for different trip types
-- Useful constants and helpers (from `consts/`)
-- Clean, responsive UI built with modern tools
+- 🌙 **Dark mode** — toggle between light and green-dark themes
+- 🎞️ **Entrance animations** — staggered fade-in on page load and scroll-triggered transitions per section
+- 🖼️ **Optimized images** — all assets converted to WebP for faster load times
+- 🔗 **Deep linking** — each section has its own URL hash (e.g. `/# gear`), shareable and browser-history aware
+- 📱 **Responsive** — mobile menu with full section navigation
+- ⏳ **Skeleton loaders** — placeholder animations while images load
+- 📊 **Reading progress bar** — fixed indicator at the top of the page
+- 🔍 **Section search** — filter navigation sections from the dropdown
 
-## 🛠️ Tech Stack
+---
 
-- **Framework**: React (with Vite for fast development)
-- **Styling**: Tailwind CSS
-- **Build Tool**: Vite
-- **Language**: JavaScript
-- **Structure**: Component-based (`components/`), pages (`pages/`), constants (`consts/`)
+## 🛠️ Stack
 
-## 🚀 Quick Start
+| Tool            | Use                       |
+| --------------- | ------------------------- |
+| React 18        | UI components and routing |
+| Tailwind CSS 3  | Utility-first styling     |
+| React Router v6 | Page navigation           |
+| React Icons     | Icon library              |
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Xaida02/camping-guide.git
-   cd camping-guide
+---
+
+## 🚀 Run locally
+
+```bash
+git clone https://github.com/Xaida02/camping-guide.git
+cd camping-guide
+npm install
+npm start
+```
+
+---
+
+## 📁 Structure
+
+```
+src/
+├── components/     # Navbar, SectionCamp, SectionInfo, Footer, Title, ScrollTop
+├── pages/          # Home, About, Error
+└── consts/         # Navigation links and site data
+```
+
+---
+
+## 👤 Author
+
+Made by **Tobías** — frontend developer.
+[github.com/Xaida02](https://github.com/Xaida02)

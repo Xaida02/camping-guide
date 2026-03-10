@@ -1,0 +1,12 @@
+1- Animación de entrada al cargar la página
+2- Progress bar de lectura
+3- Página "About" real
+4- Responsive perfecto en mobile
+5- Modo oscuro
+6- Optimizar imágenes
+7- Skeleton loaders
+8- Página 404 mejorada
+9- Buscador de secciones
+10- Traducción inglés/español
+11- Deep linking
+12- README completo

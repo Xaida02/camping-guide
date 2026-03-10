@@ -26,7 +26,6 @@ html {
 body {
   overflow-x: hidden;
   font-family: "Poppins", sans-serif;
-  /* Fondo con textura de puntos muy sutil */
   background-color: #f4faf4;
   background-image: radial-gradient(circle, #c8e6c8 1px, transparent 1px);
   background-size: 28px 28px;
@@ -71,4 +70,27 @@ body {
     transparent 75%
   );
   filter: blur(36px);
+}
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #268912, #a3e635);
+  z-index: 100;
+  transition: width 0.1s ease;
+  border-radius: 0 999px 999px 0;
+}
+
+html.dark body {
+  background-color: #0a1a08;
+  background-image: radial-gradient(circle, #1a3a16 1px, transparent 1px);
+  color: #e2f0e2;
+}
+
+* {
+  transition:
+    background-color 0.3s ease,
+    color 0.2s ease,
+    border-color 0.3s ease;
 }
