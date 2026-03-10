@@ -1,58 +1,114 @@
 import React, { useState, useRef } from "react";
 import "./Title.css";
 
-const initialMousePosition = { x: 0, y: 0 };
-
 const Title = () => {
-  const [mousePos, setMousePos] = useState(initialMousePosition);
-
-  const animatedContainer = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const containerRef = useRef(null);
 
   const handleMouseMove = (e) => {
-    let event = e.nativeEvent;
-    const elem = animatedContainer.current;
-
-    const newX = (event.offsetX / elem.clientWidth) * 100;
-    const newY = (event.offsetY / elem.clientHeight) * 100;
-    const newMousePos = {
-      x: newX,
-      y: newY,
-    };
-
-    setMousePos(newMousePos);
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x, y });
   };
 
-  const handleMouseOut = () => {
-    setMousePos(initialMousePosition);
-  };
+  const handleMouseLeave = () => setMousePos({ x: 50, y: 50 });
 
   return (
-    <section className="h-auto lg:h-[74vh] mt-[100px] sm:h-[80vh] px-10 flex items-center">
-      <div className="m-auto m-w-[800px] w-full text-center flex-col justify-center">
-        <p className="font-semibold uppercase md:py-6 p-2 text-[#11770c] drop-shadow-lg">
-          free of charge and for everyone
-        </p>
+    <section
+      className="
+        relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center
+        px-6 sm:px-10 lg:px-16 py-16 md:py-20 overflow-hidden
+        bg-[#f4faf4]
+      "
+    >
+      {/* Very soft ambient glows */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-15%] w-[50%] h-[50%] rounded-full bg-[#268912]/4 blur-3xl" />
+        <div className="absolute bottom-[-15%] right-[-15%] w-[45%] h-[45%] rounded-full bg-[#054502]/4 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 text-center max-w-6xl flex flex-col items-center gap-8 md:gap-12 lg:gap-16">
+        {/* Badge */}
         <div
-          ref={animatedContainer}
-          onMouseMove={handleMouseMove}
-          onMouseOut={handleMouseOut}
-          style={{
-            "--maskX": mousePos.x,
-            "--maskY": mousePos.y,
-          }}
-          className="smooth-transition relative w-auto h-auto flex justify-center"
+          className="
+          inline-flex items-center gap-2.5 px-6 py-3 rounded-full
+          bg-white/75 border border-[#268912]/25 shadow-sm backdrop-blur-md
+        "
         >
-          <h1 className="title-original smooth-transition text-4xl text-[#0b8404] font-bold md:text-7xl sm:text-6xl relative">
-            SUMMER CAMPING <br /> GUIDE
-          </h1>
-          <h1 className="smooth-transition title-clone absolute text-4xl text-[#36ff2b] font-bold md:text-7xl sm:text-6xl">
-            SUMMER CAMPING <br /> GUIDE
-          </h1>
+          <span className="text-[#054502] text-sm font-semibold uppercase tracking-wider">
+            Free of charge • For everyone
+          </span>
+          <span className="text-[#268912] text-lg">🌿</span>
         </div>
-        <div>
-          <p className="md:text-4xl sm:text-2xl py-2 text-xl text-[#054502c9] font-[Roboto] m-auto drop-shadow-lg">
-            We will teach you how to survive!
-          </p>
+
+        {/* Title with improved mouse-follow glow */}
+        <div
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="relative w-full select-none group"
+          style={{
+            "--mouse-x": `${mousePos.x}%`,
+            "--mouse-y": `${mousePos.y}%`,
+          }}
+        >
+          <h1
+            className="
+              font-['Playfair_Display'] font-black
+              text-[clamp(3.8rem,11vw,10rem)] leading-[0.88] tracking-[-0.025em]
+              text-[#054502]
+              transition-colors duration-700 ease-out
+              group-hover:text-[#054502]
+            "
+          >
+            SUMMER
+            <span className="block sm:inline"> </span>
+            CAMPING
+            <span className="block sm:inline"> </span>
+            GUIDE
+          </h1>
+
+          {/* Enhanced glow: brighter, follows mouse more noticeably */}
+          <div
+            className="
+              absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-50
+              bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),#26891240_0%,transparent_60%)]
+              blur-2xl transition-opacity duration-800 ease-out
+            "
+          />
+          {/* Secondary subtle shadow glow */}
+          <div
+            className="
+              absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-30
+              bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),#05450230_0%,transparent_70%)]
+              blur-xl transition-opacity duration-1000 ease-out
+            "
+          />
+        </div>
+
+        {/* Subtitle */}
+        <p
+          className="
+          font-['Poppins'] text-lg sm:text-xl md:text-2xl lg:text-3xl
+          text-[#054502]/75 max-w-4xl leading-relaxed font-light
+        "
+        >
+          Your complete guide to responsible summer camping — tips, gear,
+          safety, and nature respect
+        </p>
+
+        {/* Scroll hint */}
+        <div
+          className="
+          mt-10 md:mt-16 flex flex-col items-center gap-2
+          text-[#054502]/35 text-xs uppercase tracking-widest
+          animate-pulse-slow
+        "
+        >
+          <span>Scroll to explore</span>
+          <span className="text-lg">↓</span>
         </div>
       </div>
     </section>

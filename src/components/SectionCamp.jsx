@@ -1,69 +1,113 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./SectionCamp.css";
 
-const SectionCamp = ({ reverse, name, img, heading, p1, p2 }) => {
-  const [isFirstVisible, setIsFirstVisible] = useState(false);
-  const [isSecondVisible, setIsSecondVisible] = useState(false);
+const SectionCamp = ({ reverse = false, name, img, heading, p1, p2 }) => {
+  const [textVisible, setTextVisible] = useState(false);
+  const [imageVisible, setImageVisible] = useState(false);
 
-  const firstDiv = useRef(null);
-  const secondDiv = useRef(null);
+  const textRef = useRef(null);
+  const imageRef = useRef(null);
 
   useEffect(() => {
-    const myObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.target === firstDiv.current) {
-          setIsFirstVisible(entry.isIntersecting);
-        } else if (entry.target === secondDiv.current) {
-          setIsSecondVisible(entry.isIntersecting);
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === textRef.current) {
+            setTextVisible(entry.isIntersecting);
+          }
+          if (entry.target === imageRef.current) {
+            setImageVisible(entry.isIntersecting);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
 
-    myObserver.observe(firstDiv.current);
-    myObserver.observe(secondDiv.current);
+    if (textRef.current) observer.observe(textRef.current);
+    if (imageRef.current) observer.observe(imageRef.current);
 
-    return () => {
-      myObserver.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section
       id={name}
-      className={`px-10 mt-[20vh] w-full flex justify-evenly items-center my-[250px] ${
-        reverse
-          ? "sm:flex-row-reverse flex-col-reverse"
-          : "sm:flex-row flex-col"
-      }`}
+      className={`
+        relative w-full py-20 sm:py-28 lg:py-36
+        bg-[#f4faf4] overflow-hidden
+        flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"}
+        items-center justify-between gap-12 lg:gap-16 px-6 sm:px-10 lg:px-16
+      `}
     >
+      {/* Bloque de texto */}
       <div
-        ref={firstDiv}
-        className={`max-w-[300px] sm:max-w-[400px] relative ${
-          isFirstVisible ? (reverse ? "fade-right" : "fade-left") : "opacity-0"
-        }`}
+        ref={textRef}
+        className={`
+          w-full lg:w-5/12 max-w-xl flex flex-col gap-6 lg:gap-8
+          transition-all duration-900 ease-out
+          ${textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+        `}
       >
-        <h2 className="px-auto py-4 text-5xl text-gradient font-bold leading-12">
+        <div className="w-12 h-1 rounded-full bg-[#268912]" />
+
+        <h2
+          className="
+            font-['Playfair_Display'] font-bold
+            text-4xl sm:text-5xl lg:text-6xl
+            text-[#054502] leading-tight tracking-tight
+          "
+        >
           {heading}
         </h2>
-        <p className="mt-6 text-[17px]  text-[#001400]">{p1}</p>
-      </div>
-      <div
-        ref={secondDiv}
-        className={`py-6 flex justify-center flex-col my-10 sm:my-0 relative z-0 items-center  ${
-          isSecondVisible ? (reverse ? "fade-left" : "fade-right") : "opacity-0"
-        }`}
-      >
-        <img
-          className="smooth-transition hover:brightness-125	hover:scale-105  w-[500px]"
-          src={img}
-          alt={`${name} related logo`}
-        />
-        <div className="gradient1 absolute w-[70%] h-[70%] bottom-[10px] z-[-1]" />
-        <div className="gradient2 absolute w-[70%] h-[70%] left-[40px] z-[-1]" />
-        <div className="gradient3 absolute w-[70%] h-[70%] top-[30px] z-[-1]" />
-        <p className="italic max-w-[400] mt-4 font-bold text-[14.5px] text-[#096a04]">
-          {p2}
+
+        <p className="font-['Poppins'] text-base sm:text-lg leading-relaxed text-[#054502]/80 font-light">
+          {p1}
         </p>
+      </div>
+
+      {/* Bloque de imagen + caption */}
+      <div
+        ref={imageRef}
+        className={`
+          relative w-full lg:w-7/12 max-w-2xl flex flex-col items-center gap-6
+          transition-all duration-900 ease-out
+          ${imageVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+        `}
+      >
+        <div className="relative group w-full">
+          {/* Glow verde difuso */}
+          <div
+            className="
+            absolute inset-0 rounded-3xl
+            bg-gradient-to-br from-[#268912]/20 to-[#054502]/10
+            blur-2xl opacity-0 group-hover:opacity-70
+            transition-opacity duration-700 ease-out
+            pointer-events-none
+          "
+          />
+
+          <img
+            src={img}
+            alt={`${heading} – Guía de camping responsable`}
+            className="
+              relative z-10 w-full rounded-2xl
+              object-cover transition-all duration-500 ease-out
+              group-hover:scale-[1.015] 
+            "
+            loading="lazy"
+          />
+        </div>
+
+        {p2 && (
+          <p
+            className="
+            font-['Poppins'] italic text-sm sm:text-base
+            text-[#054502]/70 text-center max-w-lg leading-relaxed
+          "
+          >
+            {p2}
+          </p>
+        )}
       </div>
     </section>
   );

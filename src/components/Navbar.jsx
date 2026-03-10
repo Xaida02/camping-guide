@@ -1,180 +1,215 @@
 import React, { useState, useRef, useEffect } from "react";
 import { navLinks, sideBarLinks } from "../consts/variables";
-import { FaBars } from "react-icons/fa";
-import { BsChevronDoubleDown, BsChevronCompactUp } from "react-icons/bs";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { GiPineTree } from "react-icons/gi";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [showLinks, setShowLinks] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showSections, setShowSections] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const buttonRef = useRef(null);
   const submenuRef = useRef(null);
 
-  const placeSubmenu = () => {
-    const buttonRect = buttonRef.current.getBoundingClientRect();
-    // console.log(buttonRect);
-    const submenuRect = submenuRef.current.getBoundingClientRect();
-    // console.log(submenuRect);
-    submenuRef.current.style.left = `${
-      buttonRect.left + buttonRect.width / 2 - submenuRect.width / 2
-    }px`;
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const positionSubmenu = () => {
+    if (!buttonRef.current || !submenuRef.current) return;
+    const btnRect = buttonRef.current.getBoundingClientRect();
+    const subWidth = submenuRef.current.offsetWidth;
+    let left = btnRect.left + btnRect.width / 2 - subWidth / 2;
+    left = Math.max(16, Math.min(left, window.innerWidth - subWidth - 16));
+    submenuRef.current.style.left = `${left}px`;
   };
 
   useEffect(() => {
-    placeSubmenu();
-    window.addEventListener("resize", placeSubmenu);
+    if (showSections) positionSubmenu();
+    window.addEventListener("resize", positionSubmenu);
+    return () => window.removeEventListener("resize", positionSubmenu);
+  }, [showSections]);
 
-    return () => window.removeEventListener("resize", placeSubmenu);
-  }, [submenuRef.current]);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        submenuRef.current &&
+        !submenuRef.current.contains(e.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target)
+      ) {
+        setShowSections(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const handleClick = (event) => {
-    event.preventDefault();
-    const navbarHeight = document.getElementById("navbar").offsetHeight;
-    const targetId = event.target.getAttribute("href").slice(1);
-    const targetElement = document.getElementById(targetId);
-    const targetPosition = targetElement.offsetTop - navbarHeight;
-    window.scroll({
-      top: targetPosition,
-      behavior: "smooth",
-    });
+  const handleSmoothScroll = (e) => {
+    e.preventDefault();
+    const navbar = document.getElementById("navbar");
+    if (!navbar) return;
+
+    const offset = navbar.offsetHeight + 10;
+    const targetId = e.currentTarget.getAttribute("href")?.slice(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - offset,
+        behavior: "smooth",
+      });
+    }
+    setShowSections(false);
+    setShowMobileMenu(false);
   };
 
   return (
-    <>
-      <nav
-        id="navbar"
-        className="fixed flex bg-[#054502] sm:h-[80px] h-[85px] w-full justify-between items-center z-10"
-      >
-        <div
-          onClick={() => setShowLinks((prev) => !prev)}
-          className="relative flex justify-around items-center"
-        >
-          <h1
-            className={`cursor-pointer capitalize ${
-              !showLinks ? "text-[#fff]" : "text-[#238200d7]"
-            } sm:text-xl text-sm font-bold ml-4 duration-1000`}
-          >
-            Camping guide
-          </h1>
+    <nav
+      id="navbar"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "h-16 bg-[#054502]/95 backdrop-blur-md shadow-lg"
+          : "h-20 bg-[#054502]"
+      }`}
+    >
+      <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* Logo + sections toggle */}
+        <div className="relative flex items-center gap-3">
           <button
             ref={buttonRef}
-            className="absolute scale-x-150 top-[30px] left-[50%]"
+            onClick={() => setShowSections((prev) => !prev)}
+            className="flex items-center gap-2 group"
+            aria-expanded={showSections}
+            aria-label="Toggle camping sections menu"
           >
-            <BsChevronDoubleDown
-              className={`text-xl font-bold  ${
-                !showLinks
-                  ? "fill-[#ffffff99] hover:fill-[#1b7d1b] ease duration-500"
-                  : "fill-[#238200d7] rotate-180 duration-500"
+            <GiPineTree
+              className={`text-2xl transition-transform duration-300 ${
+                showSections
+                  ? "rotate-12 scale-110 text-[#a3e635]"
+                  : "text-[#86efac]/70 group-hover:text-[#a3e635]"
               }`}
             />
+            <span
+              className={`font-['Playfair_Display'] font-bold text-lg sm:text-xl transition-colors duration-300 ${
+                scrolled ? "text-base" : "text-lg sm:text-xl"
+              } ${showSections ? "text-[#a3e635]" : "text-white group-hover:text-[#a3e635]"}`}
+            >
+              Camping Guide
+            </span>
+            {showSections ? (
+              <BsChevronUp className="text-[#a3e635] text-sm" />
+            ) : (
+              <BsChevronDown className="text-white/60 group-hover:text-[#a3e635] text-sm" />
+            )}
           </button>
+
+          {/* Dropdown / Sidebar-like on mobile */}
           <div
             ref={submenuRef}
-            className={`${
-              showLinks
-                ? "nav-links top-[67px] opacity-100"
-                : "top-[-400px] z-0 opacity-0"
-            }  w-[150px] sm:w-[200px] absolute z-10 pr-3 sm:pr-6 smooth-transition opacity-100 rounded-md shadow-2xl py-4 border-[1px] bg-[#f9fff9]`}
+            className={`absolute top-full mt-3 left-0 md:left-auto md:right-0 z-50 w-64 md:w-72 rounded-xl 
+              bg-[#054502]/95 backdrop-blur-lg border border-[#268912]/30 shadow-2xl py-4 transition-all duration-300 ${
+                showSections
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }`}
           >
-            <ul className="capitalize flex flex-col">
-              {sideBarLinks.map((link, index) => {
-                const { name, id, url, icon } = link;
-                return (
-                  <li
-                    className={`submenu-li py-2 pl-2 smooth-transition border-b border-[#00330020] hover:border-[#2f7d2b59] hover:bg-[white] hover:translate-x-1 hover:shadow-2xl text-[#2f7d2b] hover:text-[#003300] ${
-                      index === sideBarLinks.length - 1
-                        ? "mb-[0px]"
-                        : "mb-[2px]"
-                    }`}
-                    key={id}
+            <p className="px-5 pb-3 text-xs uppercase tracking-widest text-[#86efac]/60 font-medium">
+              Where to?
+            </p>
+            <ul className="flex flex-col">
+              {sideBarLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={link.url}
+                    onClick={handleSmoothScroll}
+                    className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-white/90 hover:bg-[#268912]/20 hover:text-[#a3e635] transition-colors"
                   >
-                    <a
-                      onClick={handleClick}
-                      className="flex items-center justify-around sm:justify-between text-sm sm:text-lg font-semibold text-center pr-2"
-                      href={url}
-                    >
-                      <span>{icon}</span>
-                      {name}
-                    </a>
-                  </li>
-                );
-              })}
+                    <span className="text-lg text-[#86efac]/70">
+                      {link.icon}
+                    </span>
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
-            <BsChevronCompactUp
-              onClick={() => setShowMenu(false)}
-              className="text-4xl w-full absolute bottom-[-45px] stroke-1 stroke-[#238200d7] animate-bounce fill-[#238200d7] cursor-pointer"
-            />
           </div>
         </div>
-        <div className="overflow-hidden w-auto mr-[25px] logo flex items-center justify-center  relative">
-          <div className="bg-cover rounded-full flex fire-gradient absolute w-[200px] scale-[0.6] h-[200px] z-0" />
+
+        {/* Central logo */}
+        <div className="absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center">
           <img
-            className="flex-shrink-0  w-[120px]  relative z-1"
             src="/assets/navKids.png"
-            alt="logo of two kids sittings by a fire"
+            alt="Kids enjoying a campfire"
+            className={`transition-all duration-500 drop-shadow-lg cursor-pointer hover:scale-105 ${
+              scrolled ? "w-14" : "w-20"
+            }`}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
         </div>
-        <ul className="sm:flex hidden flex-row">
-          {navLinks.map((link, index) => {
-            return (
-              <li className="capitalize" key={link.id}>
-                <a
-                  className={
-                    "relative nav-link  text-[#FFF] hover:text-[white] duration-500 font-semibold " +
-                    (index === navLinks.length - 1 ? " mr-3" : " mr-6")
-                  }
-                  to={link.url}
-                >
-                  {link.name}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-        <button
-          onClick={() => setShowMenu(!showMenu)}
-          className="sm:hidden flex mx-[30px] "
-        >
-          <FaBars
-            className={`menu-icon duration-500 smooth-transition text-xl text-dimWhite ${
-              showMenu ? "rotate-90 text-[#238200d7]" : ""
-            }`}
-          />
-        </button>
-        <ul
-          className={`submenu smooth-transition drop-shadow-2xl top-[90px] bg-[#e6f0e6] absolute flex flex-col justify-around w-[112px] items-start h-[200px] rounded p-2.5 sm:hidden border-b-4 border-[#2f7d2b] rounded-b-lg ${
-            showMenu ? "right-[20px]" : "right-[-100%]"
-          }`}
-        >
-          {navLinks.map((link) => {
-            return (
-              <li
-                className="capitalize hover:bg-[#2f7d2b] bg-[#cce0cc] w-full pl-[5px] rounded border-[#2f7d2b] border-[2px] flex items-center"
-                key={link.id}
+
+        {/* Desktop links */}
+        <ul className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <li key={link.id}>
+              <a
+                href={link.url}
+                onClick={handleSmoothScroll}
+                className="flex items-center gap-2 text-white/90 hover:text-[#a3e635] text-sm font-medium tracking-wide transition-colors duration-200"
               >
-                <a
-                  className={
-                    "relative nav-link text-[14px] duration-500 font-normal hover:text-dimWhite text-[#2f7d2b] p-[4px] font-semibold flex items-center justify-around w-full h-full"
-                  }
-                  to={link.url}
-                >
-                  {link.name}
-                  {link.icon}
-                </a>
-                <style>
-                  {`
-      li:hover & > .nav-link {
-        color: [whitesmoke];
-      }
-    `}
-                </style>
-              </li>
-            );
-          })}
+                {link.icon && (
+                  <span className="text-[#86efac]/70">{link.icon}</span>
+                )}
+                {link.name}
+              </a>
+            </li>
+          ))}
         </ul>
-      </nav>
-    </>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setShowMobileMenu((prev) => !prev)}
+          className="lg:hidden text-white focus:outline-none"
+          aria-expanded={showMobileMenu}
+          aria-label="Toggle main menu"
+        >
+          {showMobileMenu ? (
+            <FaTimes className="text-2xl" />
+          ) : (
+            <FaBars className="text-2xl" />
+          )}
+        </button>
+      </div>
+
+      {/* Mobile full menu (slides down) */}
+      {showMobileMenu && (
+        <div className="lg:hidden fixed inset-x-0 top-[80px] bottom-0 bg-[#054502]/95 backdrop-blur-lg z-40 overflow-y-auto">
+          <div className="flex flex-col p-6 gap-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={link.url}
+                onClick={handleSmoothScroll}
+                className="flex items-center gap-3 py-4 px-5 text-lg font-medium text-white/90 hover:bg-[#268912]/30 hover:text-[#a3e635] rounded-lg transition-colors"
+              >
+                {link.icon && (
+                  <span className="text-2xl text-[#86efac]/70">
+                    {link.icon}
+                  </span>
+                )}
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Subtle bottom line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#268912]/40 to-transparent" />
+    </nav>
   );
 };
 

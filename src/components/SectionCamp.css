@@ -1,13 +1,24 @@
+:root {
+  --color-text-dark: #001400;
+  --color-text-accent: #096a04;
+}
+
+/* Estado inicial antes de animar */
+.animate-target {
+  opacity: 0;
+}
+
 .fade-right {
   animation: fade-in-right 0.8s ease-in-out forwards;
 }
+
 .fade-left {
   animation: fade-in-left 0.8s ease-in-out forwards;
 }
 
 @keyframes fade-in-left {
   0% {
-    transform: translateX(-100px);
+    transform: translateX(-80px);
     opacity: 0;
   }
   100% {
@@ -18,11 +29,34 @@
 
 @keyframes fade-in-right {
   0% {
-    transform: translateX(100px);
+    transform: translateX(80px);
     opacity: 0;
   }
   100% {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+/* Reemplaza gradient1 + gradient2 + gradient3 */
+.img-glow-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-glow-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(9, 106, 4, 0.35) 0%,
+    rgba(34, 197, 94, 0.15) 50%,
+    transparent 75%
+  );
+  filter: blur(32px);
+  z-index: -1;
+  border-radius: 50%;
 }

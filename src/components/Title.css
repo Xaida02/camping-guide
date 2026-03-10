@@ -1,13 +1,25 @@
-.title-clone {
-  clip-path: polygon(
-    0 0,
-    calc(var(--maskX) * 1% + (var(--maskY) - 50) * 0.4%) 0,
-    calc(var(--maskX) * 1% + (var(--maskY) - 50) * -0.4%) 100%,
-    0 100%
-  );
-  text-shadow: 2px 2px 5px #00000085;
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(4px);
+  }
 }
 
-.title-original {
-  text-shadow: 2px 2px 5px #00000085;
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Optional: reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .group-hover\:opacity-40 {
+    opacity: 0 !important;
+  }
+  .animate-pulse-slow {
+    animation: none !important;
+  }
 }
